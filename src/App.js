@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Chatbot from './components/Chatbot';
 // import Chatbot2 from './components/chatbot2';
 import ChatBoatData from './components/chatbot-data';
+import UpdateForm from './components/updateForm';
 
 const App = () => {
     return (
@@ -10,7 +11,7 @@ const App = () => {
             <div>
                 <nav>
                     <ul>
-                        <li><Link to="/">Home</Link></li>
+                        {/* <li><Link to="/">Home</Link></li> */}
                         <li><Link to="/chatbot">Chatbot</Link></li>
                         <li><Link to="/chatboatdata">ChatBoatData</Link></li>
                         {/* Uncomment this if you want to use Chatbot2 */}
@@ -22,6 +23,7 @@ const App = () => {
                     <Route path="/" element={<h1>Welcome to the Chatbot App</h1>} />
                     <Route path="/chatbot" element={<Chatbot />} />
                     <Route path="/chatboatdata" element={<ChatBoatData />} />
+                    <Route path="/chatboatdata/updates/{:id}" element={<UpdateForm />} />
                     {/* Uncomment this if you want to use Chatbot2 */}
                     {/* <Route path="/chatbot2" element={<Chatbot2 />} /> */}
                 </Routes>

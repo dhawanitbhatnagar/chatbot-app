@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css'; // Import the CSS file for styling
 import { v4 as uuidv4 } from 'uuid'; // Import UUID for generating session IDs
-import boatImg from "../img/Chatbot.gif";
+import boatImg from "../img/Sleeping2.gif";
 import boatImgClose from "../img/chatbox-close.png";
 import uploadicon from "../img/upload-image.png";
 import sendIcon from "../img/sendIcon.png";
@@ -173,7 +173,7 @@ const Chatbot = () => {
     return (
         <div className="chatbot-container1">
             <button className="chatbot-toggler" onClick={toggleChat}>
-                <span className="material-symbols-rounded"><img src={boatImg} alt="image-1" width={80} height={80}></img></span>
+                <span className="material-symbols-rounded"><img src={boatImg} alt="image-1"></img></span>
                 <span className="material-symbols-outlined"><img src={boatImgClose} alt="image-close" width={80} height={80}></img></span>
             </button>
 
