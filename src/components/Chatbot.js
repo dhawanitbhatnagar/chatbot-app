@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css'; // Import the CSS file for styling
 import { v4 as uuidv4 } from 'uuid'; // Import UUID for generating session IDs
-import boatImg from "../img/Chatbot.gif"
-import boatImgClose from "../img/chatbox-close.png"
-import uploadicon from "../img/upload-image.png"
+import boatImg from "../img/Chatbot.gif";
+import boatImgClose from "../img/chatbox-close.png";
+import uploadicon from "../img/upload-image.png";
+import sendIcon from "../img/sendIcon.png";
 
 const Chatbot = () => {
     const [userInput, setUserInput] = useState('');
@@ -30,10 +31,8 @@ const Chatbot = () => {
 
     // Effect to initialize session ID
     useEffect(() => {
-        // Check for existing session ID in local storage
         let existingSessionId = localStorage.getItem('sessionId');
         if (!existingSessionId) {
-            // If none exists, create a new session ID
             existingSessionId = uuidv4();
             localStorage.setItem('sessionId', existingSessionId);
         }
@@ -101,29 +100,46 @@ const Chatbot = () => {
         const file = e.target.files[0];
         if (file) {
             setSelectedImage(file); // Set the selected image
-            // Reset the input value to allow re-uploading the same file
             e.target.value = null; // Clear the input value
         }
+    };
+
+    // Check if both text and image are present to add a specific class
+    const getMessageClass = (message) => {
+        let messageClass = 'message';
+        if (message.sender === 'user') {
+            if (message.text && message.image) {
+                messageClass += ' user-with-image-and-text'; // Add a class when both text and image are present
+            } else {
+                messageClass += ' user';
+            }
+        } else {
+            messageClass += ' bot';
+        }
+        return messageClass;
     };
 
     return (
         <div className="chatbot-container1">
             <button className="chatbot-toggler" onClick={toggleChat}>
-                <span className="material-symbols-rounded"><img src={boatImg} alt="image-1"></img></span>
-                <span className="material-symbols-outlined"><img src={boatImgClose} alt="image-close"></img></span>
+                <span className="material-symbols-rounded"><img src={boatImg} alt="image-1" width={80} height={80}></img></span>
+                <span className="material-symbols-outlined"><img src={boatImgClose} alt="image-close" width={80} height={80}></img></span>
             </button>
 
             {isChatOpen && (
                 <div className="chatbot">            
                     <header>
-                        <h2>Chatbot</h2>
+                        <h2>FRED</h2>
                         <span className="close-btn material-symbols-outlined" onClick={toggleChat}>close</span>
                     </header>
 
                     <div className="chatbox" ref={chatWindowRef}>
+                        <div className='message bot'>
+                            {/* <p>test</p> */}
+                            <p>Hi there 👋<br/>How can I help you today?</p>
+                        </div>
                         {messages.map((message, index) => (
-                            <div key={index} className={`message ${message.sender}`}>
-                                <p>{message.text} </p>
+                            <div key={index} className={getMessageClass(message)}>                                
                                 {message.image && (
                                     <img
                                         src={URL.createObjectURL(message.image)}
@@ -131,17 +147,20 @@ const Chatbot = () => {
                                         className="message-image"
                                     />
                                 )}
+                                <p>{message.text}</p>
                             </div>
-                        ))}
+                        ))} 
                     </div>
 
                     <div className="input-area chat-input">
-                        <label htmlFor="imageUpload" className="attach-icon"><img src={uploadicon} alt="image-1"></img></label>
+                        <label htmlFor="imageUpload" className="attach-icon">
+                            <img src={uploadicon} alt="image-1" width={20} height={20}></img>
+                        </label>
                         <div className="">
                         {selectedImage && (
                             <div className="image-preview">
-                                <img src={URL.createObjectURL(selectedImage)} alt="Preview" className="preview-image" />
-                                <button className="remove-image-btn" onClick={() => setSelectedImage(null)}>✕</button>
+                                <img src={URL.createObjectURL(selectedImage)} alt="Preview" className="preview-image" width={50} height={50}/>
+                                <button className="remove-image-btn cross" onClick={() => setSelectedImage(null)}>✕</button>
                             </div>
                         )}
                         <input
@@ -160,7 +179,8 @@ const Chatbot = () => {
                             onKeyPress={(e) => e.key === 'Enter' && sendMessage()} // Allow pressing "Enter" to send
                         />                        
                         </div>
-                        <button onClick={sendMessage}>Send</button>
+                        {/* <span onClick={sendMessage}></span> */}
+                        <button onClick={sendMessage} className='sendBtn'><img src={sendIcon} alt="image-close" width={20} height={20}></img></button>
                     </div>
                 </div>
             )}
