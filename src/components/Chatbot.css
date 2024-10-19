@@ -80,12 +80,6 @@ nav ul li a:hover {
     align-items: center;
 }
 
-.preview-image {
-    width: 50px; /* Smaller preview size */
-    height: auto;
-    border-radius: 5px; /* Slightly round the corners */
-}
-
 .chat-input button {
     margin-left: 10px; /* Space between input and send button */
     padding: 0 16px; /* Padding for the button */
@@ -393,4 +387,34 @@ header h2 {
     color: #888;
     display: block;
     margin-top: 5px;
+}
+
+.file-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* Set fixed width */
+    height: 100px; /* Set fixed height */
+    overflow: hidden; /* Hide any overflow */
+    border: 1px solid #ccc; /* Optional: Border for better visibility */
+    border-radius: 5px; /* Optional: Rounded corners */
+}
+
+.preview-image {
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 5px; /* Slightly round the corners */
+}
+
+.preview-video {
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    object-fit: contain; /* Maintain aspect ratio while fitting */
+    border-radius: 5px; /* Slightly round the corners */
+}
+
+.preview-audio {
+    width: auto; /* Allow for audio controls */
+    height: auto; /* Allow for audio controls */
 }
